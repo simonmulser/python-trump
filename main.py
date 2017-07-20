@@ -29,5 +29,6 @@ with open('tweets.csv', 'a') as file:
 		tweets = api.GetUserTimeline(user_id=25073877, since_id=796797436752707585 - 1, max_id=current, count=200)
 		print('len tweets {}'.format(len(tweets)))
 		for tweet in tweets:
-			writer.writerow([tweet.created_at, tweet.full_text, tweet.source, tweet.retweet_count, tweet.favorite_count, 'https://twitter.com/realdonaldtrump/status/{}'.format(tweet.id)])
+			favorite_count = tweet.retweeted_status.favorite_count if tweet.retweeted_status else tweet.favorite_count
+			writer.writerow([tweet.created_at, tweet.full_text, tweet.source, tweet.retweet_count, favorite_count, 'https://twitter.com/realdonaldtrump/status/{}'.format(tweet.id)])
 			current = tweet.id
