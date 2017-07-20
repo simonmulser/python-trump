@@ -30,5 +30,6 @@ with open('tweets.csv', 'a') as file:
 		print('len tweets {}'.format(len(tweets)))
 		for tweet in tweets:
 			favorite_count = tweet.retweeted_status.favorite_count if tweet.retweeted_status else tweet.favorite_count
-			writer.writerow([tweet.created_at, tweet.full_text, tweet.source, tweet.retweet_count, favorite_count, 'https://twitter.com/realdonaldtrump/status/{}'.format(tweet.id)])
+			text = tweet.full_text.replace('&amp;', '&')
+			writer.writerow([tweet.created_at, text, tweet.source, tweet.retweet_count, favorite_count, 'https://twitter.com/realdonaldtrump/status/{}'.format(tweet.id)])
 			current = tweet.id
